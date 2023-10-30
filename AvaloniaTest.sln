@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AvaloniaTest", "AvaloniaTest\AvaloniaTest.fsproj", "{629CC849-5850-4251-8631-859F0D54C660}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{629CC849-5850-4251-8631-859F0D54C660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629CC849-5850-4251-8631-859F0D54C660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629CC849-5850-4251-8631-859F0D54C660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629CC849-5850-4251-8631-859F0D54C660}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1863750C-D0D8-4CD9-9345-8B7F3A0E1754}
+	EndGlobalSection
+EndGlobal
