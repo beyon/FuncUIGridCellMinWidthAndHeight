@@ -15,15 +15,17 @@ module ColumnDefinition =
     open Avalonia.Controls
     
     module private Internals =
-        let make (width: GridLength) (minWidth: float option) (maxWidth: float option) =
+        let make (width: GridLength option) (minWidth: float option) (maxWidth: float option) =
             let columnDefinition = ColumnDefinition()
-            columnDefinition.Width <- width
+            match width with
+            | Some w -> columnDefinition.Width <- w
+            | None -> columnDefinition.Width <- GridLength(0.0, GridUnitType.Auto)
             minWidth |> Option.iter (fun minW -> columnDefinition.MinWidth <- minW)
             maxWidth |> Option.iter (fun maxW -> columnDefinition.MaxWidth <- maxW)
             columnDefinition
 
     type ColumnDefinition with
-        static member create(width: GridLength, ?minWidth: float, ?maxWidth: float) =
+        static member create(?width: GridLength, ?minWidth: float, ?maxWidth: float) =
             Internals.make width minWidth maxWidth
         
         /// <summary>
@@ -33,7 +35,7 @@ module ColumnDefinition =
         /// <param name="minWidth">Optional minimum column width in pixels</param>
         /// <param name="maxWidth">Optional maximum column width in pixels</param>
         static member createPixel(width: float, ?minWidth: float, ?maxWidth: float) =
-            Internals.make (GridLength(width, GridUnitType.Pixel)) minWidth maxWidth
+            Internals.make (Some(GridLength(width, GridUnitType.Pixel))) minWidth maxWidth
 
         /// <summary>
         /// Creates a ColumnDefinition with proportional width
@@ -41,8 +43,8 @@ module ColumnDefinition =
         /// <param name="value">Factor used for dividing the width among proportional columns</param>
         /// <param name="minWidth">Optional minimum column width in pixels</param>
         /// <param name="maxWidth">Optional maximum column width in pixels</param>
-        static member createStar(value: float, ?minWidth: float, ?maxWidth: float) =
-            Internals.make (GridLength(value, GridUnitType.Star)) minWidth maxWidth
+        static member createStar(?value: float, ?minWidth: float, ?maxWidth: float) =
+            Internals.make (Some(GridLength(defaultArg value 1.0, GridUnitType.Star))) minWidth maxWidth
 
         /// <summary>
         /// Creates a ColumnDefinition with automatic column width
@@ -50,7 +52,7 @@ module ColumnDefinition =
         /// <param name="minWidth">Optional minimum column width in pixels</param>
         /// <param name="maxWidth">Optional maximum column width in pixels</param>
         static member createAuto(?minWidth: float, ?maxWidth: float) =
-            Internals.make (GridLength(0.0, GridUnitType.Auto)) minWidth maxWidth
+            Internals.make None minWidth maxWidth
             
 
 [<AutoOpen>]
@@ -58,15 +60,17 @@ module RowDefinition =
     open Avalonia.Controls
     
     module private Internals =
-        let make (height: GridLength) (minHeight: float option) (maxHeight: float option) =
+        let make (height: GridLength option) (minHeight: float option) (maxHeight: float option) =
             let rowDefinition = RowDefinition()
-            rowDefinition.Height <- height
+            match height with
+            | Some h -> rowDefinition.Height <- h
+            | None -> rowDefinition.Height <- GridLength(0.0, GridUnitType.Auto)
             minHeight |> Option.iter (fun minH -> rowDefinition.MinHeight <- minH)
             maxHeight |> Option.iter (fun maxH -> rowDefinition.MaxHeight <- maxH)
             rowDefinition
 
     type RowDefinition with
-        static member create(height: GridLength, ?minHeight: float, ?maxHeight: float) =
+        static member create(?height: GridLength, ?minHeight: float, ?maxHeight: float) =
             Internals.make height minHeight maxHeight
 
         /// <summary>
@@ -76,7 +80,7 @@ module RowDefinition =
         /// <param name="minHeight">Optional minimum row height in pixels</param>
         /// <param name="maxHeight">Optional maximum row height in pixels</param>
         static member createPixel(height: float, ?minHeight: float, ?maxHeight: float) =
-            Internals.make (GridLength(height, GridUnitType.Pixel)) minHeight maxHeight
+            Internals.make (Some(GridLength(height, GridUnitType.Pixel))) minHeight maxHeight
 
         /// <summary>
         /// Creates a RowDefintion with proportional height
@@ -84,8 +88,8 @@ module RowDefinition =
         /// <param name="value">Factor used for dividing the height among proportional rows</param>
         /// <param name="minHeight">Optional minimum row height in pixels</param>
         /// <param name="maxHeight">Optional maximum row height in pixels</param>
-        static member createStar(value: float, ?minHeight: float, ?maxHeight: float) =
-            Internals.make (GridLength(value, GridUnitType.Star)) minHeight maxHeight
+        static member createStar(?value: float, ?minHeight: float, ?maxHeight: float) =
+            Internals.make (Some(GridLength(defaultArg value 1.0, GridUnitType.Star))) minHeight maxHeight
 
         /// <summary>
         /// Creates a RowDefintion with automatic row height
@@ -93,7 +97,7 @@ module RowDefinition =
         /// <param name="minHeight">Optional minimum row height in pixels</param>
         /// <param name="maxHeight">Optional maximum row height in pixels</param>
         static member createAuto(?minHeight: float, ?maxHeight: float) =
-            Internals.make (GridLength(0.0, GridUnitType.Auto)) minHeight maxHeight
+            Internals.make None minHeight maxHeight
 
 [<AutoOpen>]
 module Grid =
@@ -188,9 +192,9 @@ module Main =
             let tabGridCellsWithMinWidthAndHeightExperimentalDSL :IView =
                     Grid.create [
                         Grid.columnDefinitions [
-                            ColumnDefinition.create(width=GridLength(1.0, GridUnitType.Star), minWidth = 64.)
-                            ColumnDefinition.create(width=GridLength(4.0, GridUnitType.Pixel), minWidth = 4.)
-                            ColumnDefinition.create(width=GridLength(3.0, GridUnitType.Star), minWidth = 64.)
+                            ColumnDefinition.create(GridLength(1.0, GridUnitType.Star), minWidth = 64.)
+                            ColumnDefinition.create(GridLength(4.0, GridUnitType.Pixel), minWidth = 4.)
+                            ColumnDefinition.create(GridLength(3.0, GridUnitType.Star), minWidth = 64.)
                         ]
                         Grid.rowDefinitions [
                             RowDefinition.createStar(1.0, minHeight=64.0)
