@@ -48,14 +48,14 @@ Code using DSL with Grid.columnDefinition.create and Grid.rowDefinitons.create:
 ```fsharp
 Grid.create [
     Grid.columnDefinitions [
-        ColumnDefinition.create(width=GridLength(1.0, GridUnitType.Star), minWidth = 64.)
-        ColumnDefinition.create(width=GridLength(4.0, GridUnitType.Pixel), minWidth = 4.)
-        ColumnDefinition.create(width=GridLength(3.0, GridUnitType.Star), minWidth = 64.)
+        ColumnDefinition.create(GridLength(1.0, GridUnitType.Star), minWidth = 64.)
+        ColumnDefinition.create(GridLength(4.0, GridUnitType.Pixel), minWidth = 4.)
+        ColumnDefinition.create(GridLength(3.0, GridUnitType.Star), minWidth = 64.)
     ]
     Grid.rowDefinitions [
-        ColumnDefinition.create(width=GridLength(1.0, GridUnitType.Star), minHeight = 64.)
-        ColumnDefinition.create(width=GridLength(4.0, GridUnitType.Pixel), minHeight = 4.)
-        ColumnDefinition.create(width=GridLength(1.5, GridUnitType.Star), minHeight = 64.)
+        ColumnDefinition.create(GridLength(1.0, GridUnitType.Star), minHeight = 64.)
+        ColumnDefinition.create(GridLength(4.0, GridUnitType.Pixel), minHeight = 4.)
+        ColumnDefinition.create(GridLength(1.5, GridUnitType.Star), minHeight = 64.)
     ]
     Grid.children [
         ...
@@ -97,7 +97,7 @@ Grid.columnDefinitions [
 ]
 Grid.rowDefinitions [
     ColumnDefinition.create(GridLength(400., GridUnitType.Pixel))
-    ColumnDefinition.create()
+    ColumnDefinition.create(GridLength(0., GridUnitType.Auto))
 ]
 ```
 Shorthand DSL:
@@ -116,4 +116,17 @@ Grid.create [
 
 ## Questions
 - Should Columndefinition.create()/RowDefinition.create() (when no arguments given) default to GridLength(0.0, GridUnitType.Auto) or GridLength(1.0, GridUnitType.Star)?
+- Consider DU as parameter to create instead of GridLength
+    ```fsharp
+    type GridDef
+    | Auto
+    | Pixel of float
+    | Propotional of float
+    ```
+    ```fsharp
+    type GridDef
+    | Auto
+    | Pixel of float
+    | Star of float
+    ```
 
