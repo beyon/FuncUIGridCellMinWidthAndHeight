@@ -1,4 +1,4 @@
-﻿namespace CounterApp
+﻿namespace FuncUIGridCellMinWidthAndHeight
 
 open Avalonia
 open Avalonia.Controls.ApplicationLifetimes
@@ -19,7 +19,7 @@ module ColumnDefinition =
             let columnDefinition = ColumnDefinition()
             match width with
             | Some w -> columnDefinition.Width <- w
-            | None -> columnDefinition.Width <- GridLength(0.0, GridUnitType.Auto)
+            | None -> columnDefinition.Width <- GridLength(1.0, GridUnitType.Star)
             minWidth |> Option.iter (fun minW -> columnDefinition.MinWidth <- minW)
             maxWidth |> Option.iter (fun maxW -> columnDefinition.MaxWidth <- maxW)
             columnDefinition
@@ -52,7 +52,7 @@ module ColumnDefinition =
         /// <param name="minWidth">Optional minimum column width in pixels</param>
         /// <param name="maxWidth">Optional maximum column width in pixels</param>
         static member createAuto(?minWidth: float, ?maxWidth: float) =
-            Internals.make None minWidth maxWidth
+            Internals.make (Some(GridLength(0.0, GridUnitType.Auto))) minWidth maxWidth
             
 
 [<AutoOpen>]
@@ -64,7 +64,7 @@ module RowDefinition =
             let rowDefinition = RowDefinition()
             match height with
             | Some h -> rowDefinition.Height <- h
-            | None -> rowDefinition.Height <- GridLength(0.0, GridUnitType.Auto)
+            | None -> rowDefinition.Height <- GridLength(1.0, GridUnitType.Star)
             minHeight |> Option.iter (fun minH -> rowDefinition.MinHeight <- minH)
             maxHeight |> Option.iter (fun maxH -> rowDefinition.MaxHeight <- maxH)
             rowDefinition
@@ -97,7 +97,7 @@ module RowDefinition =
         /// <param name="minHeight">Optional minimum row height in pixels</param>
         /// <param name="maxHeight">Optional maximum row height in pixels</param>
         static member createAuto(?minHeight: float, ?maxHeight: float) =
-            Internals.make None minHeight maxHeight
+            Internals.make (Some(GridLength(0.0,GridUnitType.Auto))) minHeight maxHeight
 
 [<AutoOpen>]
 module Grid =
@@ -349,7 +349,7 @@ module Main =
 type MainWindow() =
     inherit HostWindow()
     do
-        base.Title <- "Counter Example"
+        base.Title <- "FuncUI Grid cell minWidth/minHeight and new column/row definitions DSL"
         base.Content <- Main.view ()
 
 type App() =
