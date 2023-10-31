@@ -2,6 +2,7 @@
 
 ## Problems
 - Setting minWidth and/or minHeight on the "cells" directely of a Grid doesn't work in Avalonia, at least not currently (see: https://github.com/AvaloniaUI/Avalonia/issues/7637).
+![image](demo.gif)
 - You can't specify minHeight and minHeight when specifying rowDefinition/columnDefinition in string form, instead you have to use ColumnDefinitions and RowDefinitions objects instead.
 - Using the ColumnDefinitions, RowDefinitions, ColumnDefinition, RowDefinition objects in FuncUI results in verbose code that doesn't fit so nicely with the FuncUI DSL
 

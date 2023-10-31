@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AvaloniaTest", "AvaloniaTest\AvaloniaTest.fsproj", "{629CC849-5850-4251-8631-859F0D54C660}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GridCellMinWidthAndHeight", "GridCellMinWidthAndHeight\GridCellMinWidthAndHeight.fsproj", "{629CC849-5850-4251-8631-859F0D54C660}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
