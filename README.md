@@ -106,7 +106,7 @@ Grid.create [
     Grid.columnDefinitions [
         ColumnDefinition.createPixel(200.)
         ColumnDefinition.createStar(2.)
-        ColumnDefinition.createStar()
+        ColumnDefinition.createStar() //same as .createStar(1.0) or .create()
     ]
     Grid.rowDefinitions [
         RowDefinition.createPixel(400.)
@@ -115,18 +115,23 @@ Grid.create [
 ```
 
 ## Questions
-- Should Columndefinition.create()/RowDefinition.create() (when no arguments given) default to GridLength(0.0, GridUnitType.Auto) or GridLength(1.0, GridUnitType.Star)?
-- Consider DU as parameter to create instead of GridLength
+- Is the .create(GridLength()) form needed? Shorthand DSL provides same functionality and at least to me much easier to read and write.
+- An alternative and/or addition could be a .create(gridlength: CellSize) where CellSize could be:
     ```fsharp
-    type GridDef
-    | Auto
-    | Pixel of float
-    | Propotional of float
-    ```
-    ```fsharp
-    type GridDef
+    type CellSize =
     | Auto
     | Pixel of float
     | Star of float
     ```
-
+    or
+    ```fsharp
+    type CellSize =
+    | Auto
+    | Pixel of float
+    | Proportional of float
+    ```
+    ```fsharp
+    RowDefinition.create(CellSize.Auto)
+    RowDefinition.create(CellSize.Pixel 200.)
+    RowDefinition.create(CellSize.Star 1.5)
+    ```
